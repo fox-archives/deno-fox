@@ -38,3 +38,14 @@ let string = await getTemplatedFile(
 await writeTemplatedFile("scripts.yaml", string);
 
 await writeStarterFiles(userChoice, templateOptions);
+
+const spinner = Spinner.getInstance();
+spinner.setSpinnerType("bouncingBar");
+spinner.start("^w^ useless loading spinner! 🦊");
+globalThis.setTimeout(async () => {
+  spinner.setText("okiii done!");
+  await spinner.stop();
+}, 1200)
+
+print(`project generated in your working directory! notice a problem? - post a bug report on github: https://github.com/eankeen/fox`)
+exit(0)
