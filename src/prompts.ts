@@ -16,19 +16,20 @@ export async function promptUser(): Promise<{
     ],
   });
 
+
+  const webFrameworkOptions = [
+    { value: "oak", name: "Oak (github.com/oakserver/oak) (>620 stars)" },
+    { value: "abc", name: "abc (github.com/zhmushan/abs) (>216 stars)" },
+    { value: "pogo", name: "pogo (github.com/sholladay/pogo) (>140 stars)" },
+  ]
+  if (languageRaw === "typescript") webFrameworkOptions.push( {
+    value: "alosaur",
+    name: "Alosaur (github.com/alosaur/alosaur) (>131 stars)",
+  })
   const webFrameworkRaw: string | undefined = await Select.prompt({
     message: "framework your web server?",
-    options: [
-      { value: "oak", name: "Oak (github.com/oakserver/oak) (>620 stars)" },
-      { value: "abc", name: "abc (github.com/zhmushan/abs) (>216 stars)" },
-      { value: "pogo", name: "pogo (github.com/sholladay/pogo) (>140 stars)" },
-      {
-        value: "alosaur",
-        name: "Alosaur (github.com/alosaur/alosaur) (>131 stars)",
-      },
-    ],
+    options: webFrameworkOptions
   });
-
 
 
   if (!languageRaw) {
@@ -40,8 +41,8 @@ export async function promptUser(): Promise<{
     exit(1)
   }
 
-  let language: "javascript" | "typescript" = <"javascript" | "typescript">languageRaw;
-  let webFramework: starterWebFrameworkNames = webFrameworkRaw
+  let language: "javascript" | "typescript" = <"javascript" | "typescript"> languageRaw;
+  let webFramework: starterWebFrameworkNames = <starterWebFrameworkNames> webFrameworkRaw
 
   return {
     language,
