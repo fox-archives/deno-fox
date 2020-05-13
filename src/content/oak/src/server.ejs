@@ -1,3 +1,6 @@
 import { app } from "./app.ts";
 
-await app.listen({ port: Deno.env.get("PORT") ?? 3000 });
+
+const port = parseInt(Deno.env.get("PORT") ?? "3000")
+await app.listen({ port });
+console.info('listening on', port)

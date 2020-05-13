@@ -38,11 +38,11 @@ export async function promptUser(): Promise<IUserChoice> {
 
 
   if (!languageRaw) {
-    console.log("Somehow, the programming language was not chosen")
+    console.info("Somehow, the programming language was not chosen")
     exit(1)
   }
   if (!webFrameworkRaw) {
-    console.log("Somehow, the web framework was not chosen!")
+    console.info("Somehow, the web framework was not chosen!")
     exit(1)
   }
 
@@ -57,7 +57,7 @@ export async function promptUser(): Promise<IUserChoice> {
 }
 
 export async function askToOverwriteExistingFiles(fileRes: string): Promise<boolean> {
-  const willOverwrite = await Confirm.prompt(`It looks like '${fileRes}' already exists! :0 Replace it?`)
+  const willOverwrite = await Confirm.prompt(`It looks like '${fileRes}' already exists! :0 Remove it?`)
   if (!willOverwrite) {
     throw new Error("somehow, the prompt returned undefined")
   }

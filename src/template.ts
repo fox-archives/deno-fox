@@ -109,6 +109,7 @@ export function createTemplateOptions(userChoice: IUserChoice): ITemplateOptions
       allow: {
         read: true,
         net: true,
+        env: true
       },
     };
   } else {
@@ -123,19 +124,19 @@ export function createTemplateOptions(userChoice: IUserChoice): ITemplateOptions
 const ourFiles = [
   "scripts.yaml",
   "src/app.ts",
-  "src/server.ts"
+  "src/server.ts",
+  "src/app.js",
+  "src/server.js"
 ]
-export async function promptForOverwrite() {
+export async function promptForOverwrite(): Promise<void> {
   const dir = getWriteDirectory()
 
   for(const fileRel of ourFiles) {
     const fileAbs = join(dir, fileRel)
-    console.log(fileAbs)
-    if (exists(fileAbs)) {
+    if (await exists(fileAbs)) {
       const isOverwrite = await askToOverwriteExistingFiles(`./${fileRel}`)
       if (isOverwrite) {
-        // await emptyDir(dir)
-        await remove(fileAbs, { recursive: false })
+        await remove(fileAbs, { recursive: false });
       }
     }
   }
