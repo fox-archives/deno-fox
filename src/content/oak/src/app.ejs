@@ -3,7 +3,7 @@ import { Application } from "https://deno.land/x/oak/mod.ts";<% if (isTs) { %><%
 const app = new Application();
 
 app.use((ctx<% if (isTs) { %>: Context<% } %>) => {
-  ctx.response.body = "Hello World!";
+  ctx.response.body = "Hello, Oak!";
 });
 
 export { app };

@@ -2,8 +2,7 @@ import { Spinner } from "./deps.ts";
 import { getColorEnabled, cyan } from "https://deno.land/std/fmt/colors.ts";
 import { promptUser } from "./src/prompts.ts";
 import type { IUserChoice } from "./src/prompts.ts";
-import { getTemplatedFile } from "./src/template.ts";
-import { writeTemplatedFile, writeStarterFiles } from "./src/write.ts";
+import { getTemplatedFile, promptForOverwrite, createTemplateOptions, writeStarterFiles, writeTemplatedFile } from "./src/template.ts";
 
 const { exit } = Deno
 
@@ -24,31 +23,9 @@ print(
 );
 
 const userChoice: IUserChoice = await promptUser();
+await promptForOverwrite()
+const templateOptions = createTemplateOptions(userChoice)
 
-const templateDefaults = {
-  nl: "\n",
-  main: "src/main.ts",
-  flags: false,
-  allow: {
-    read: false,
-    write: false,
-    net: false,
-  },
-};
-
-let templateOptions = {};
-if (userChoice.webFramework) {
-  templateOptions = {
-    ...templateDefaults,
-    main: "src/server.ts",
-    isTs: userChoice.language === "typescript",
-    framework: userChoice.webFramework,
-    allow: {
-      read: true,
-      net: true,
-    },
-  };
-}
 
 let string = await getTemplatedFile(
   "scripts.yaml.ejs",

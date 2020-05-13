@@ -1,4 +1,4 @@
-import { Select } from "../deps.ts"
+import { Select, Confirm } from "../deps.ts"
 import type { starterWebFrameworkNames } from "./@types/defs.d.ts";
 
 const { exit } = Deno
@@ -54,4 +54,12 @@ export async function promptUser(): Promise<IUserChoice> {
     isWebFramework: true,
     webFramework,
   };
+}
+
+export async function askToOverwriteExistingFiles(): Promise<boolean> {
+  const willOverwrite = await Confirm.prompt("It looks like you have existing files that would be overriden here! :0 Would you like to nuke all existing files in this directory?")
+  if (!willOverwrite) {
+    throw new Error("somehow, the prompt returned undefined")
+  }
+  return willOverwrite
 }
