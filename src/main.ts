@@ -2,7 +2,7 @@ import Spinner from "https://raw.githubusercontent.com/ameerthehacker/cli-spinne
 import { getColorEnabled, cyan } from "https://deno.land/std/fmt/colors.ts";
 import { promptUser } from "./prompts.ts";
 import { getTemplatedFile } from "./template.ts";
-import { writeTemplatedFile } from "./write.ts";
+import { writeTemplatedFile, writeStarterFiles } from "./write.ts";
 
 let print = (text: string): void =>
   getColorEnabled() ? console.log(cyan(text)) : console.log(text);
@@ -14,7 +14,7 @@ _,-=._              /|_/|
         \`    G.m-"^m\`m'
 `);
 print(
-  "Haii!! This foxxo will help you bootstrap a Deno web project. First answer a few questions, and your project will be created",
+  "Haii!! This foxxo will help you bootstrap a Deno web project. Answer some questions, and your project will be created! ^w^",
 );
 
 const userChoice = await promptUser();
@@ -23,7 +23,6 @@ const templateDefaults = {
   nl: "\n",
   main: "src/main.ts",
   flags: false,
-  isWebServer: false,
   allow: {
     read: false,
     write: false,
@@ -36,10 +35,9 @@ if (userChoice.webFramework) {
   templateOptions = {
     ...templateDefaults,
     main: "src/server.ts",
-    isWebServer: true,
+    framework: userChoice.webFramework,
     allow: {
       read: true,
-      write: true,
       net: true,
     },
   };
@@ -49,6 +47,6 @@ let string = await getTemplatedFile(
   "velociraptor/scripts.yaml.ejs",
   templateOptions,
 );
-console.log(string);
 
 await writeTemplatedFile("scripts.yaml", string);
+await writeStarterFiles(userChoice.webFramework);

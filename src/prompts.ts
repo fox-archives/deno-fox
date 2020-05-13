@@ -1,11 +1,14 @@
 import { Select } from "https://raw.githubusercontent.com/eankeen/deno-cliffy/master/mod.ts";
+import type { starterWebFrameworkNames } from "./@types/defs.d.ts";
+
+const { exit } = Deno
 
 export async function promptUser(): Promise<{
   language: string;
   isWebFramework: boolean;
   webFramework: string | undefined;
 }> {
-  const language: string = <string> await Select.prompt({
+  const languageRaw: string | undefined = await Select.prompt({
     message: "What is your language of choice?",
     options: [
       { value: "typescript", name: "Typescript (recommended)" },
@@ -13,7 +16,7 @@ export async function promptUser(): Promise<{
     ],
   });
 
-  const webFramework: string = <string> await Select.prompt({
+  const webFrameworkRaw: string | undefined = await Select.prompt({
     message: "framework your web server?",
     options: [
       { value: "oak", name: "Oak (github.com/oakserver/oak) (>620 stars)" },
@@ -25,6 +28,20 @@ export async function promptUser(): Promise<{
       },
     ],
   });
+
+
+
+  if (!languageRaw) {
+    console.log("Somehow, the programming language was not chosen")
+    exit(1)
+  }
+  if (!webFrameworkRaw) {
+    console.log("Somehow, the web framework was not chosen!")
+    exit(1)
+  }
+
+  let language: "javascript" | "typescript" = <"javascript" | "typescript">languageRaw;
+  let webFramework: starterWebFrameworkNames = webFrameworkRaw
 
   return {
     language,
