@@ -1,4 +1,4 @@
-import { renderFile } from "../deps.ts"
+import { renderFile } from "../deps.ts";
 import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts";
 import { exists } from "https://deno.land/std/fs/exists.ts";
 import { emptyDir } from "https://deno.land/std/fs/empty_dir.ts";
@@ -71,22 +71,24 @@ export async function writeStarterFiles(
 }
 
 interface ITemplateOptions {
-  nl: string,
-  main: string,
-  flags: boolean,
-  isTs: boolean,
-  framework?: string,
+  nl: string;
+  main: string;
+  flags: boolean;
+  isTs: boolean;
+  framework?: string;
   allow?: {
-    read: boolean,
-    write?: boolean,
-    run?: boolean,
-    net?: boolean,
-    env?: boolean,
-    hwrim?: boolean
-  }
+    read: boolean;
+    write?: boolean;
+    run?: boolean;
+    net?: boolean;
+    env?: boolean;
+    hwrim?: boolean;
+  };
 }
 
-export function createTemplateOptions(userChoice: IUserChoice): ITemplateOptions {
+export function createTemplateOptions(
+  userChoice: IUserChoice,
+): ITemplateOptions {
   const templateDefaults = {
     nl: "\n",
     main: "src/main.ts",
@@ -99,7 +101,7 @@ export function createTemplateOptions(userChoice: IUserChoice): ITemplateOptions
     },
   };
 
-  let templateOptions
+  let templateOptions;
   if (userChoice.webFramework) {
     templateOptions = {
       ...templateDefaults,
@@ -109,16 +111,16 @@ export function createTemplateOptions(userChoice: IUserChoice): ITemplateOptions
       allow: {
         read: true,
         net: true,
-        env: true
+        env: true,
       },
     };
   } else {
     templateOptions = {
-      ...templateDefaults
-    }
+      ...templateDefaults,
+    };
   }
 
-  return templateOptions
+  return templateOptions;
 }
 
 const ourFiles = [
@@ -126,15 +128,15 @@ const ourFiles = [
   "src/app.ts",
   "src/server.ts",
   "src/app.js",
-  "src/server.js"
-]
+  "src/server.js",
+];
 export async function promptForOverwrite(): Promise<void> {
-  const dir = getWriteDirectory()
+  const dir = getWriteDirectory();
 
-  for(const fileRel of ourFiles) {
-    const fileAbs = join(dir, fileRel)
+  for (const fileRel of ourFiles) {
+    const fileAbs = join(dir, fileRel);
     if (await exists(fileAbs)) {
-      const isOverwrite = await askToOverwriteExistingFiles(`./${fileRel}`)
+      const isOverwrite = await askToOverwriteExistingFiles(`./${fileRel}`);
       if (isOverwrite) {
         await remove(fileAbs, { recursive: false });
       }

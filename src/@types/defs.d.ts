@@ -1,1 +1,1 @@
-export type starterWebFrameworkNames = "oak" | "abc"
+export type starterWebFrameworkNames = "oak" | "abc";
