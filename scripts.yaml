@@ -1,0 +1,9 @@
+scripts:
+  start: deno run --unstable src/main.ts
+  watch:
+    cmd: denon --config .denonrc.json run src/main.ts
+    log: info
+  test: deno test
+allow:
+  - read
+  - write
