@@ -1,9 +1,8 @@
 scripts:
-  start: deno run --unstable src/main.ts
+  start: deno run <% if (flags) { %><%= main %> <% } %><%= main %>
   watch:
     cmd: denon --config .denonrc.json run src/main.ts
     log: info
   test: deno test
 allow:
-  - read
-  - write
+  <% if (allow.read) { %>- read <% } %><% if (allow.write) { %><%= nl %>  - write <% } %><% if (allow.run) { %><%= nl %>  - run <% } %><% if (allow.net) { %><%= nl %>  - net <% } %><% if (allow.env) { %><%= nl %>  - env <% } %><% if (allow.hrtime) { %><%= nl %>  - hrtime <% } %>

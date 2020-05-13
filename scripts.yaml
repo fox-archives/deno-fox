@@ -1,9 +1,15 @@
 scripts:
-  start: deno run --unstable src/main.ts
+  start:
+    cmd: deno run --unstable src/main.ts
+    env:
+      DENO_ENV: development
   watch:
     cmd: denon --config .denonrc.json run src/main.ts
     log: info
-  test: deno test
+  test:
+    env:
+      DENO_ENV: test
 allow:
   - read
   - write
+  - env
