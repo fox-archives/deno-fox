@@ -1,9 +1,7 @@
 import { join, dirname } from "https://deno.land/std/path/mod.ts";
-import { copy } from "https://deno.land/std/fs/mod.ts";
 import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts"
 import type { IUserChoice } from "./prompts.ts"
 import { getTemplatedFile } from "./template.ts";
-import type { starterWebFrameworkNames } from './@types/defs.d.ts';
 
 const { writeTextFile } = Deno;
 

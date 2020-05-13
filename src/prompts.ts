@@ -1,4 +1,4 @@
-import { Select } from "https://raw.githubusercontent.com/eankeen/deno-cliffy/master/mod.ts";
+import { Select } from "../deps.ts"
 import type { starterWebFrameworkNames } from "./@types/defs.d.ts";
 
 const { exit } = Deno

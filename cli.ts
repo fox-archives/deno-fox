@@ -1,9 +1,14 @@
-import Spinner from "https://raw.githubusercontent.com/ameerthehacker/cli-spinners/master/mod.ts";
+import { Spinner } from "./deps.ts";
 import { getColorEnabled, cyan } from "https://deno.land/std/fmt/colors.ts";
-import { promptUser } from "./prompts.ts";
-import type { IUserChoice } from "./prompts.ts";
-import { getTemplatedFile } from "./template.ts";
-import { writeTemplatedFile, writeStarterFiles } from "./write.ts";
+import { promptUser } from "./src/prompts.ts";
+import type { IUserChoice } from "./src/prompts.ts";
+import { getTemplatedFile } from "./src/template.ts";
+import { writeTemplatedFile, writeStarterFiles } from "./src/write.ts";
+
+const { exit } = Deno
+
+if (!import.meta.main) console.log('something happened'), exit(1)
+
 
 let print = (text: string): void =>
   getColorEnabled() ? console.log(cyan(text)) : console.log(text);

@@ -1,10 +1,10 @@
 scripts:
   start:
-    cmd: deno run --unstable src/main.ts
+    cmd: deno run --unstable cli.ts
     env:
       DENO_ENV: development
   watch:
-    cmd: denon --config .denonrc.json run src/main.ts
+    cmd: denon --config .denonrc.json run cli.ts
     log: info
   test:
     env:
