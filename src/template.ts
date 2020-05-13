@@ -4,7 +4,8 @@ import { exists } from "https://deno.land/std/fs/exists.ts";
 import { emptyDir } from "https://deno.land/std/fs/empty_dir.ts";
 import { IUserChoice, askToOverwriteExistingFiles } from "./prompts.ts";
 import { join, dirname } from "https://deno.land/std/path/mod.ts";
-const { writeTextFile } = Deno;
+
+const { writeTextFile, remove } = Deno;
 
 let currentDir = dirname(new URL(import.meta.url).pathname);
 
@@ -129,10 +130,12 @@ export async function promptForOverwrite() {
 
   for(const fileRel of ourFiles) {
     const fileAbs = join(dir, fileRel)
+    console.log(fileAbs)
     if (exists(fileAbs)) {
-      const isOverwrite = await askToOverwriteExistingFiles()
+      const isOverwrite = await askToOverwriteExistingFiles(`./${fileRel}`)
       if (isOverwrite) {
-        emptyDir(fileAbs)
+        // await emptyDir(dir)
+        await remove(fileAbs, { recursive: false })
       }
     }
   }

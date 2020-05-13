@@ -56,8 +56,8 @@ export async function promptUser(): Promise<IUserChoice> {
   };
 }
 
-export async function askToOverwriteExistingFiles(): Promise<boolean> {
-  const willOverwrite = await Confirm.prompt("It looks like you have existing files that would be overriden here! :0 Would you like to nuke all existing files in this directory?")
+export async function askToOverwriteExistingFiles(fileRes: string): Promise<boolean> {
+  const willOverwrite = await Confirm.prompt(`It looks like '${fileRes}' already exists! :0 Replace it?`)
   if (!willOverwrite) {
     throw new Error("somehow, the prompt returned undefined")
   }
