@@ -1,5 +1,8 @@
 import { join, dirname } from "https://deno.land/std/path/mod.ts";
 import { copy } from "https://deno.land/std/fs/mod.ts";
+import { ensureDir } from "https://deno.land/std/fs/ensure_dir.ts"
+import type { IUserChoice } from "./prompts.ts"
+import { getTemplatedFile } from "./template.ts";
 import type { starterWebFrameworkNames } from './@types/defs.d.ts';
 
 const { writeTextFile } = Deno;
@@ -28,14 +31,26 @@ export async function writeTemplatedFile(
   content: string,
 ): Promise<void> {
   const writePath = join(getWriteDirectory(), filePath)
+  const parentDirname = dirname(writePath)
+  await ensureDir(parentDirname)
+
   await writeTextFile(writePath, content);
 }
 
 export async function writeStarterFiles(
-  starterName: starterWebFrameworkNames,
+  userChoice: IUserChoice,
+  templateOptions: object
 ): Promise<void> {
-  const from = join(currentDir, "content", starterName, "src");
-  const to = join(getWriteDirectory(), "src");
-  await copy(from, to);
+  const appString = await getTemplatedFile(
+    `${userChoice.webFramework}/src/app.ejs`,
+    templateOptions,
+  )
+  const serverString = await getTemplatedFile(
+    `${userChoice.webFramework}/src/server.ejs`,
+    templateOptions,
+  );
 
+  let ext = userChoice.language === "typescript" ? "ts" : "js"
+  await writeTemplatedFile(`src/app.${ext}`, appString);
+  await writeTemplatedFile(`src/server.${ext}`, serverString)
 }

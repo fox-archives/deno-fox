@@ -10,7 +10,7 @@ export const getTemplatedFile = async (
 ): Promise<string> => {
   const absoluteFilePath = join(
     dirname(new URL(import.meta.url).pathname),
-    "templates",
+    "content",
     file,
   );
   return await readerToString(await renderFile(absoluteFilePath, opts));

@@ -3,11 +3,16 @@ import type { starterWebFrameworkNames } from "./@types/defs.d.ts";
 
 const { exit } = Deno
 
-export async function promptUser(): Promise<{
-  language: string;
-  isWebFramework: boolean;
-  webFramework: string | undefined;
-}> {
+export interface IUserChoice {
+  language:
+  string;
+  isWebFramework:
+  boolean;
+  webFramework:
+  string | undefined;
+}
+
+export async function promptUser(): Promise<IUserChoice> {
   const languageRaw: string | undefined = await Select.prompt({
     message: "What is your language of choice?",
     options: [
