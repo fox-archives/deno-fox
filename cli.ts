@@ -1,5 +1,5 @@
 import { Spinner } from "./deps.ts";
-import { getColorEnabled, cyan } from "https://deno.land/std/fmt/colors.ts";
+import { getColorEnabled, cyan } from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { promptUser } from "./src/prompts.ts";
 import type { IUserChoice } from "./src/prompts.ts";
 import {
