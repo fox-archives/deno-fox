@@ -30,7 +30,7 @@ export async function promptUser(): Promise<IUserChoice> {
     });
   }
   const webFrameworkRaw: string | undefined = await Select.prompt({
-    message: "framework your web server?",
+    message: "What is your choice of web framework?",
     options: webFrameworkOptions,
   });
 
