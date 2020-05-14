@@ -2,6 +2,7 @@ import { app } from "./app.ts";
 
 const port = parseInt(Deno.env.get("PORT") ?? "3000")
 
-console.info('will listen on', port)
+console.info(`listening on ${port}`)
+
 app
   .start({ port });

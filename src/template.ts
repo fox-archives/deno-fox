@@ -1,7 +1,7 @@
 import { renderFile } from "../deps.ts";
 import { ensureDir } from "https://deno.land/std@0.51.0/fs/ensure_dir.ts";
 import { exists } from "https://deno.land/std@0.51.0/fs/exists.ts";
-import { emptyDir } from "https://deno.land/std@0.51.0/fs/empty_dir.ts";
+// import { emptyDir } from "https://deno.land/std@0.51.0/fs/empty_dir.ts";
 import { IUserChoice, askToOverwriteExistingFiles } from "./prompts.ts";
 import { join, dirname } from "https://deno.land/std@0.51.0/path/mod.ts";
 

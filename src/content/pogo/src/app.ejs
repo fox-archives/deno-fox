@@ -1,7 +1,9 @@
 import pogo from "https://deno.land/x/pogo/main.ts";
 
 const port = parseInt(Deno.env.get("PORT") ?? "3000")
-console.info('will listen on', port)
+
+console.info(`listening on port ${port}`)
+
 const server = pogo.server({ port });
 
 server.router.get("/", () => {
